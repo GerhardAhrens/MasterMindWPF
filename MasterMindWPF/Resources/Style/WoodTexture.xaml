@@ -1,0 +1,180 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        =====================================================
+        FARBEN
+        =====================================================
+    -->
+
+    <Color x:Key="WoodDark">#5E3A1F</Color>
+    <Color x:Key="WoodMid">#8A5A34</Color>
+    <Color x:Key="WoodLight">#B07A4D</Color>
+
+    <!--
+        =====================================================
+        BASISVERLAUF
+        =====================================================
+    -->
+
+    <LinearGradientBrush x:Key="WoodBaseBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="{StaticResource WoodDark}" />
+        <GradientStop Offset="0.5" Color="{StaticResource WoodMid}" />
+        <GradientStop Offset="1" Color="{StaticResource WoodLight}" />
+    </LinearGradientBrush>
+
+    <!--
+        =====================================================
+        HOLZMASERUNG
+        =====================================================
+    -->
+
+    <DrawingBrush
+        x:Key="FineWoodGrainBrush"
+        TileMode="Tile"
+        Viewport="0,0,240,140"
+        ViewportUnits="Absolute">
+
+        <DrawingBrush.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="Transparent">
+                    <GeometryDrawing.Pen>
+                        <Pen Brush="#20FFFFFF" Thickness="1.2" />
+                    </GeometryDrawing.Pen>
+
+                    <GeometryDrawing.Geometry>
+                        <GeometryGroup>
+                            <EllipseGeometry
+                                Center="120,20"
+                                RadiusX="110"
+                                RadiusY="10" />
+
+                            <EllipseGeometry
+                                Center="120,50"
+                                RadiusX="95"
+                                RadiusY="8" />
+
+                            <EllipseGeometry
+                                Center="120,80"
+                                RadiusX="120"
+                                RadiusY="11" />
+
+                            <EllipseGeometry
+                                Center="120,110"
+                                RadiusX="100"
+                                RadiusY="8" />
+
+                        </GeometryGroup>
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <!--
+        =====================================================
+        NOISE
+        =====================================================
+    -->
+
+    <DrawingBrush
+        x:Key="WoodNoiseBrush"
+        TileMode="Tile"
+        Viewport="0,0,50,50"
+        ViewportUnits="Absolute">
+
+        <DrawingBrush.Drawing>
+
+            <DrawingGroup>
+
+                <GeometryDrawing Brush="#08FFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="5,10,1,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#06000000">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="20,25,1,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="#08FFFFFF">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="35,40,1,1" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingBrush.Drawing>
+    </DrawingBrush>
+
+    <!--
+        =====================================================
+        STYLE FÜR CONTROL
+        =====================================================
+    -->
+
+    <Style x:Key="AnimatedWoodControlStyle" TargetType="Control">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Control">
+                    <Grid ClipToBounds="True">
+
+                        <!--  BASIS  -->
+                        <Border Background="{StaticResource WoodBaseBrush}" />
+
+                        <!--  ANIMIERTE MASERUNG  -->
+                        <Border Opacity="0.42">
+                            <Border.Background>
+                                <VisualBrush Stretch="Fill">
+                                    <VisualBrush.Visual>
+                                        <Grid Width="500" Height="300">
+                                            <Rectangle Fill="{StaticResource FineWoodGrainBrush}">
+                                                <Rectangle.RenderTransform>
+                                                    <TranslateTransform x:Name="WoodTransform" />
+                                                </Rectangle.RenderTransform>
+
+                                                <Rectangle.Triggers>
+                                                    <EventTrigger RoutedEvent="Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard AutoReverse="True" RepeatBehavior="Forever">
+
+                                                                <DoubleAnimation
+                                                                    Storyboard.TargetProperty="(Rectangle.RenderTransform).(TranslateTransform.X)"
+                                                                    From="20"
+                                                                    To="20"
+                                                                    Duration="0:0:5" />
+
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Rectangle.Triggers>
+                                            </Rectangle>
+                                        </Grid>
+                                    </VisualBrush.Visual>
+                                </VisualBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <!--  NOISE  -->
+                        <Border Background="{StaticResource WoodNoiseBrush}" Opacity="0.10" />
+
+                        <!--  LICHT  -->
+                        <Border>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <GradientStop Offset="0" Color="#20FFFFFF" />
+                                    <GradientStop Offset="0.4" Color="#00000000" />
+                                    <GradientStop Offset="1" Color="#18000000" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                        </Border>
+
+                        <!--  INHALT  -->
+                        <ContentPresenter />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

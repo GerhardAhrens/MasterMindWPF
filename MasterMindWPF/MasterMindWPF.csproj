@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <ApplicationIcon>Resources\Picture\ApplicationIcon.ico</ApplicationIcon>
+    <AssemblyVersion>1.0.2026.1</AssemblyVersion>
+    <FileVersion>1.0.2026.1</FileVersion>
+    <Authors>MinimalWPF</Authors>
+    <Company>MinimalWPF</Company>
+    <Product>MinimalWPF</Product>
+    <Description>MinimalWPF NET10 V6 Template </Description>
+    <PackageId>MinimalWPF</PackageId>
+    <AssemblyName>MasterMindWPF</AssemblyName>
+    <AssemblyTitle>MinimalWPF</AssemblyTitle>
+    <RootNamespace>MasterMindWPF</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="_Doc\MainWindow.png" />
+    <None Remove="_Doc\Settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Picture\ApplicationIcon.ico" />
+    <Content Include="_Doc\MainWindow.png" />
+    <Content Include="_Doc\Settings.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Picture\ApplicationIcon.ico" />
+    <Resource Include="Resources\Picture\ApplicationIcon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Localization\" />
+  </ItemGroup>
+
+</Project>
