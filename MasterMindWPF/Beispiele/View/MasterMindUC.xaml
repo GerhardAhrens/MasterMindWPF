@@ -24,7 +24,7 @@
     <Grid
         ClipToBounds="True"
         ColumnDefinitions="*,120,2*,1*,*"
-        RowDefinitions="Auto,40,*,30"
+        RowDefinitions="Auto,40,*,40"
         ShowGridLines="True">
         <Control
             Grid.Row="0"
@@ -135,12 +135,14 @@
                 Width="100"
                 Height="30"
                 Margin="5"
+                Command="{Binding Path=NewPlayCommand}"
                 Content="Neues Spiel" />
 
             <Button
                 Width="100"
                 Height="30"
                 Margin="5"
+                Command="{Binding Path=ShowColorsCommand}"
                 Content="Auflösen" />
 
             <Button
@@ -167,7 +169,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R1:C1" />
+                    TagContent="Player:R1:C1" />
 
                 <local:EllipseButton
                     x:Name="PlayerR1C2"
@@ -177,7 +179,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R1:C2" />
+                    TagContent="Player:R1:C2" />
 
                 <local:EllipseButton
                     x:Name="PlayerR1C3"
@@ -187,7 +189,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R1:C2" />
+                    TagContent="Player:R1:C3" />
 
                 <local:EllipseButton
                     x:Name="PlayerR1C4"
@@ -197,7 +199,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R1:C4" />
+                    TagContent="Player:R1:C4" />
 
                 <!--  Reihe 2  -->
                 <local:EllipseButton
@@ -208,7 +210,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R2:C1" />
+                    TagContent="Player:R2:C1" />
 
                 <local:EllipseButton
                     x:Name="PlayerR2C2"
@@ -218,7 +220,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R2:C2" />
+                    TagContent="Player:R2:C2" />
 
                 <local:EllipseButton
                     x:Name="PlayerR2C3"
@@ -228,7 +230,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R2:C2" />
+                    TagContent="Player:R2:C2" />
 
                 <local:EllipseButton
                     x:Name="PlayerR2C4"
@@ -238,7 +240,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R2:C4" />
+                    TagContent="Player:R2:C4" />
 
                 <!--  Reihe 3  -->
                 <local:EllipseButton
@@ -249,7 +251,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R3:C1" />
+                    TagContent="Player:R3:C1" />
 
                 <local:EllipseButton
                     x:Name="PlayerR3C2"
@@ -259,7 +261,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R3:C2" />
+                    TagContent="Player:R3:C2" />
 
                 <local:EllipseButton
                     x:Name="PlayerR3C3"
@@ -269,7 +271,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R3:C3" />
+                    TagContent="Player:R3:C3" />
 
                 <local:EllipseButton
                     x:Name="PlayerR3C4"
@@ -279,7 +281,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R3:C4" />
+                    TagContent="Player:R3:C4" />
 
                 <!--  Reihe 4  -->
                 <local:EllipseButton
@@ -290,7 +292,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R4:C1" />
+                    TagContent="Player:R4:C1" />
 
                 <local:EllipseButton
                     x:Name="PlayerR4C2"
@@ -300,7 +302,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R4:C2" />
+                    TagContent="Player:R4:C2" />
 
                 <local:EllipseButton
                     x:Name="PlayerR4C3"
@@ -310,7 +312,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R4:C3" />
+                    TagContent="Player:R4:C3" />
 
                 <local:EllipseButton
                     x:Name="PlayerR4C4"
@@ -320,7 +322,89 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Select:R4:C4" />
+                    TagContent="Player:R4:C4" />
+
+                <!--  Reihe 5  -->
+                <local:EllipseButton
+                    x:Name="PlayerR5C1"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R5:C1" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR5C2"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R5:C2" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR5C3"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R5:C3" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR5C4"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R5:C4" />
+
+                <!--  Reihe 6  -->
+                <local:EllipseButton
+                    x:Name="PlayerR6C1"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R6:C1" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR6C2"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R6:C2" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR6C3"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R6:C3" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR6C4"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Player:R6:C4" />
             </UniformGrid>
         </Border>
 
@@ -399,6 +483,44 @@
 
             </UniformGrid>
         </Border>
+
+        <StackPanel
+            x:Name="RandomStackPanel"
+            Grid.Row="3"
+            Grid.Column="2"
+            Orientation="Horizontal">
+            <Ellipse
+                x:Name="RandomR1C1"
+                Width="25"
+                Height="25"
+                Margin="25,0,45,0"
+                Fill="Transparent"
+                Stroke="Gray" />
+
+            <Ellipse
+                x:Name="RandomR1C2"
+                Width="25"
+                Height="25"
+                Margin="0,0,45,0"
+                Fill="Transparent"
+                Stroke="Gray" />
+
+            <Ellipse
+                x:Name="RandomR1C3"
+                Width="25"
+                Height="25"
+                Margin="0,0,45,0"
+                Fill="Transparent"
+                Stroke="Gray" />
+
+            <Ellipse
+                x:Name="RandomR1C4"
+                Width="25"
+                Height="25"
+                Margin="0,0,0,0"
+                Fill="Transparent"
+                Stroke="Gray" />
+        </StackPanel>
 
     </Grid>
 </base:UserControlBase>

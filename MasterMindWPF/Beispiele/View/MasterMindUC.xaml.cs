@@ -26,6 +26,8 @@
             this.InitializeComponent();
             WeakEventManager<UserControlBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
+            this.NewPlayCommand = new CommandBase(args => this.OnNewPlay(args), () => true);
+            this.ShowColorsCommand = new CommandBase(args => this.OnShowColors(args), () => true);
             this.SelectColorCommand = new CommandBase(args => this.OnSelectColor(args), () => true);
             this.PlayerColorCommand = new CommandBase(args => this.OnPlayerColor(args), () => true);
             this.CheckCommand = new CommandBase(args => this.OnCheck(args), () => true);
@@ -33,9 +35,13 @@
             this.DataContext = this;
         }
 
+        public CommandBase NewPlayCommand { get; private set; }
+        public CommandBase ShowColorsCommand { get; private set; }
         public CommandBase SelectColorCommand { get; private set; }
         public CommandBase PlayerColorCommand { get; private set; }
         public CommandBase CheckCommand { get; private set; }
+
+        public Brush CurrentSelectedColor { get; set; }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -49,40 +55,101 @@
             this.DisableAllPlayerColors();
         }
 
+        private void OnNewPlay(object args)
+        {
+            List<Brush> randomColors = new BrushProvider().GetRandomBrushes();
+            this.RandomStackPanel.Visibility = Visibility.Hidden;
+            this.RandomR1C1.Fill = randomColors[0];
+            this.RandomR1C2.Fill = randomColors[1];
+            this.RandomR1C3.Fill = randomColors[2];
+            this.RandomR1C4.Fill = randomColors[3];
+
+            if (this._playerColors != null)
+            {
+                this._playerColors.Clear();
+
+                for (int i = 0; i < randomColors.Count; i++)
+                {
+                    PlayerColor rndColor = new PlayerColor()
+                    {
+                        Color = randomColors[0],
+                        Row = -1,
+                        Col = -1,
+                        PlayerWin = false,
+                        LineChecked = false,
+                        Modus = PlayerModus.RandomColor
+                    };
+
+                    this._playerColors.Add(rndColor);
+                }
+
+                this.EnablelPlayerColors(1);
+            }
+        }
+
+        private void OnShowColors(object args)
+        {
+            this.RandomStackPanel.Visibility = Visibility.Visible;
+
+
+        }
+
         private void OnSelectColor(object args)
         {
             string tag = ((Ellipse)args).Tag.ToString();
             Brush color = ((Ellipse)args).Fill;
-
             string[] selectEllipse = tag.Split(':');
 
-            if (this._playerColors != null)
-            {
-                int row = int.Parse(new string(selectEllipse[1].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
-                int col = int.Parse(new string(selectEllipse[2].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
-
-                PlayerColor playerColor = new PlayerColor()
-                {
-                    Color = color,
-                    Row = row,
-                    Col = col,
-                    PlayerWin = false,
-                    LineChecked = false
-                };
-
-                if (_playerColors.Any(pc => pc.Row == row && pc.Col == col && pc.Color == color) == false)
-                {
-                    _playerColors.Add(playerColor);
-                }
-            }
-
+            this.CurrentSelectedColor = color;
         }
 
         private void OnPlayerColor(object args)
         {
-            if (this._playerColors != null)
-            {
+            string tag = ((Ellipse)args).Tag.ToString();
+            Brush color = ((Ellipse)args).Fill;
+            string[] selectEllipse = tag.Split(':');
 
+            if (this._playerColors != null && this.CurrentSelectedColor != Brushes.Transparent)
+            {
+                int row = int.Parse(new string(selectEllipse[1].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+                int col = int.Parse(new string(selectEllipse[2].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+
+                if (_playerColors.Any(r => r.Row == row && r.Color == this.CurrentSelectedColor) == false)
+                {
+                    PlayerColor playerColor = new PlayerColor()
+                    {
+                        Color = this.CurrentSelectedColor,
+                        Row = row,
+                        Col = col,
+                        PlayerWin = false,
+                        LineChecked = false,
+                        Modus = PlayerModus.PlayerColor
+                    };
+
+                    if (this._playerColors.Any(pc => pc.Row == row && pc.Col == col && pc.Color == color) == false)
+                    {
+                        this._playerColors.Add(playerColor);
+                    }
+
+                    if (tag.Replace(":", string.Empty) == "PlayerR1C1")
+                    {
+                        this.PlayerR1C1.FillColor = this.CurrentSelectedColor;
+                    }
+                    else if (tag.Replace(":", string.Empty) == "PlayerR1C2")
+                    {
+                        this.PlayerR1C2.FillColor = this.CurrentSelectedColor;
+                    }
+                    else if (tag.Replace(":", string.Empty) == "PlayerR1C3")
+                    {
+                        this.PlayerR1C3.FillColor = this.CurrentSelectedColor;
+                    }
+                    else if (tag.Replace(":", string.Empty) == "PlayerR1C4")
+                    {
+                        this.PlayerR1C4.FillColor = this.CurrentSelectedColor;
+                    }
+
+                    this.CurrentSelectedColor = Brushes.Transparent;
+                }
             }
         }
 
@@ -90,6 +157,21 @@
         {
             if (this._playerColors != null && this._playerColors.Count == 4)
             {
+            }
+        }
+
+        private void EnablelPlayerColors(int row)
+        {
+            if (row == 1)
+            {
+                this.PlayerR1C1.FillColor = Brushes.Transparent;
+                this.PlayerR1C1.IsEnabled = true;
+                this.PlayerR1C2.FillColor = Brushes.Transparent;
+                this.PlayerR1C2.IsEnabled = true;
+                this.PlayerR1C3.FillColor = Brushes.Transparent;
+                this.PlayerR1C3.IsEnabled = true;
+                this.PlayerR1C4.FillColor = Brushes.Transparent;
+                this.PlayerR1C4.IsEnabled = true;
             }
         }
 
@@ -130,6 +212,30 @@
             this.PlayerR4C3.IsEnabled = false;
             this.PlayerR4C4.FillColor = Brushes.LightGray;
             this.PlayerR4C4.IsEnabled = false;
+
+            this.PlayerR5C1.FillColor = Brushes.LightGray;
+            this.PlayerR5C1.IsEnabled = false;
+            this.PlayerR5C2.FillColor = Brushes.LightGray;
+            this.PlayerR5C2.IsEnabled = false;
+            this.PlayerR5C3.FillColor = Brushes.LightGray;
+            this.PlayerR5C3.IsEnabled = false;
+            this.PlayerR5C4.FillColor = Brushes.LightGray;
+            this.PlayerR5C4.IsEnabled = false;
+
+            this.PlayerR6C1.FillColor = Brushes.LightGray;
+            this.PlayerR6C1.IsEnabled = false;
+            this.PlayerR6C2.FillColor = Brushes.LightGray;
+            this.PlayerR6C2.IsEnabled = false;
+            this.PlayerR6C3.FillColor = Brushes.LightGray;
+            this.PlayerR6C3.IsEnabled = false;
+            this.PlayerR6C4.FillColor = Brushes.LightGray;
+            this.PlayerR6C4.IsEnabled = false;
+        }
+
+        private enum PlayerModus
+        {
+            RandomColor,
+            PlayerColor,
         }
 
         private sealed class PlayerColor
@@ -143,6 +249,8 @@
             public bool LineChecked { get; set; }
 
             public bool PlayerWin { get; set; }
+
+            public PlayerModus Modus { get; set; }
         }
     }
 }
