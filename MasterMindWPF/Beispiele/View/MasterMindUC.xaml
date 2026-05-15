@@ -52,74 +52,79 @@
             BorderThickness="1">
             <UniformGrid Columns="6" Rows="1">
                 <local:EllipseButton
-                    x:Name="SelectR1C1"
+                    x:Name="SelectR0C1"
                     Width="25"
                     Height="25"
-                    Margin="5"
                     Command="{Binding Path=SelectColorCommand}"
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    TagContent="Select:R1:C1" />
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C1" />
 
-                <!--
-                <Ellipse
-                    x:Name="SelectR1C1"
+                <local:EllipseButton
+                    x:Name="SelectR0C2"
                     Width="25"
                     Height="25"
-                    Margin="5"
+                    Command="{Binding Path=SelectColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    Fill="Transparent"
-                    IsEnabled="True"
-                    Stroke="Gray" />
-                -->
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C2" />
 
-                <Ellipse
-                    x:Name="SelectR1C2"
+                <local:EllipseButton
+                    x:Name="SelectR0C3"
                     Width="25"
                     Height="25"
-                    Margin="5"
+                    Command="{Binding Path=SelectColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C3" />
 
-                <Ellipse
-                    x:Name="SelectR1C3"
+                <local:EllipseButton
+                    x:Name="SelectR0C4"
                     Width="25"
                     Height="25"
-                    Margin="5"
+                    Command="{Binding Path=SelectColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C4" />
 
-                <Ellipse
-                    x:Name="SelectR1C4"
+                <local:EllipseButton
+                    x:Name="SelectR0C5"
                     Width="25"
                     Height="25"
-                    Margin="5"
+                    Command="{Binding Path=SelectColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C5" />
 
-                <Ellipse
-                    x:Name="SelectR1C5"
+                <local:EllipseButton
+                    x:Name="SelectR0C6"
                     Width="25"
                     Height="25"
-                    Margin="5"
+                    Command="{Binding Path=SelectColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
-                    Fill="Transparent"
-                    Stroke="Gray" />
-
-                <Ellipse
-                    x:Name="SelectR1C6"
-                    Width="25"
-                    Height="25"
-                    Margin="5"
-                    Cursor="Hand"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    FillColor="Transparent"
+                    TagContent="Select:R0:C6" />
 
             </UniformGrid>
         </Border>
+
+        <local:EllipseButton
+            x:Name="ebCheck"
+            Grid.Row="1"
+            Grid.Column="3"
+            Width="40"
+            Height="40"
+            Command="{Binding Path=CheckCommand}"
+            CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+            Cursor="Hand"
+            FillColor="DodgerBlue"
+            Text="Ok" />
 
 
         <StackPanel
@@ -153,33 +158,85 @@
             BorderBrush="Black"
             BorderThickness="1">
             <UniformGrid Columns="4" Rows="10">
-                <Ellipse
+                <local:EllipseButton
                     x:Name="PlayerR1C1"
-                    Width="30"
-                    Height="30"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R1:C1" />
 
-                <Ellipse
+                <local:EllipseButton
                     x:Name="PlayerR1C2"
-                    Width="30"
-                    Height="30"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R1:C2" />
 
-                <Ellipse
+                <local:EllipseButton
                     x:Name="PlayerR1C3"
-                    Width="30"
-                    Height="30"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R1:C2" />
 
-                <Ellipse
+                <local:EllipseButton
                     x:Name="PlayerR1C4"
-                    Width="30"
-                    Height="30"
-                    Fill="Transparent"
-                    Stroke="Gray" />
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R1:C4" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR2C1"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R2:C1" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR2C2"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R2:C2" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR2C3"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R2:C2" />
+
+                <local:EllipseButton
+                    x:Name="PlayerR2C4"
+                    Width="25"
+                    Height="25"
+                    Command="{Binding Path=PlayerColorCommand}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
+                    Cursor="Hand"
+                    FillColor="Transparent"
+                    TagContent="Select:R2:C4" />
             </UniformGrid>
         </Border>
 

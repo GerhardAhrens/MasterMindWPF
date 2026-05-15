@@ -34,8 +34,6 @@ namespace MasterMindWPF
             this.SetVectorIcon("AppIcon2", 64);
 
             this.QuitCommand = new CommandBase(this.OnQuit, () => true);
-            this.QuitParamCommand = new CommandBase(() => this.OnQuit("Argument"));
-            this.StartCommand = new CommandBase(this.OnStart);
             this.InformationCommand = new CommandBase(this.OnInformationPopup);
             this.SettingsCommand = new CommandBase(this.OnSettingsPopup);
             this.CloseInformationPopupCommand = new CommandBase(this.OnCloseInformation);
@@ -50,8 +48,6 @@ namespace MasterMindWPF
         }
 
         public CommandBase QuitCommand { get; private set; }
-        public CommandBase QuitParamCommand { get; private set; }
-        public CommandBase StartCommand { get; private set; }
         public CommandBase InformationCommand { get; private set; }
         public CommandBase SettingsCommand { get; private set; }
         public CommandBase CloseInformationPopupCommand { get; private set; }
@@ -102,19 +98,6 @@ namespace MasterMindWPF
             this.Close();
         }
 
-        private void OnStart()
-        {
-            DialogWindow dlg = new DialogWindow();
-            dlg.Owner = this;
-            bool? dlgResult = dlg.ShowDialog();
-        }
-
-        private void OnQuit(string param)
-        {
-            /* this.QuitParamCommand.TryExecute(); */
-            this.Tag = param;
-            this.Close();
-        }
 
         private void OnInformationPopup()
         {
