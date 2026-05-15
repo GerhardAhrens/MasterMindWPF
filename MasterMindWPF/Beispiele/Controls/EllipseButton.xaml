@@ -26,9 +26,25 @@
                             VerticalAlignment="Center"
                             FontWeight="Bold"
                             Foreground="White"
+                            IsHitTestVisible="False"
                             Text="{TemplateBinding Text}" />
 
                     </Grid>
+
+                    <ControlTemplate.Triggers>
+
+                        <!--  MouseOver  -->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="PART_Ellipse" Property="StrokeThickness" Value="5" />
+                        </Trigger>
+
+                        <!--  Disabled  -->
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="0.4" />
+                            <Setter Property="Cursor" Value="Arrow" />
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
