@@ -148,7 +148,10 @@
             Background="AliceBlue"
             BorderBrush="Black"
             BorderThickness="1">
-            <UniformGrid Columns="4" Rows="10">
+            <UniformGrid
+                x:Name="gridPlayer"
+                Columns="4"
+                Rows="10">
                 <!--  Reihe 1  -->
                 <local:EllipseButton
                     x:Name="PlayerR1C1"
@@ -568,7 +571,7 @@
             BorderBrush="Black"
             BorderThickness="1">
             <UniformGrid
-                x:Name="gridPlayer"
+                x:Name="gridResults"
                 Columns="4"
                 Rows="10">
                 <!--  Reihe 1  -->
@@ -576,7 +579,7 @@
                     x:Name="ResultR1C1"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -584,7 +587,7 @@
                     x:Name="ResultR1C2"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -592,7 +595,7 @@
                     x:Name="ResultR1C3"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -600,7 +603,7 @@
                     x:Name="ResultR1C4"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -609,7 +612,7 @@
                     x:Name="ResultR2C1"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -617,7 +620,7 @@
                     x:Name="ResultR2C2"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -625,7 +628,7 @@
                     x:Name="ResultR2C3"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
@@ -633,10 +636,273 @@
                     x:Name="ResultR2C4"
                     Width="15"
                     Height="15"
-                    Margin="5"
+                    Margin="4"
                     Fill="Transparent"
                     Stroke="Gray" />
 
+                <!--  Reihe 3  -->
+                <Ellipse
+                    x:Name="ResultR3C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR3C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR3C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR3C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 4  -->
+                <Ellipse
+                    x:Name="ResultR4C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR4C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR4C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR4C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 5  -->
+                <Ellipse
+                    x:Name="ResultR5C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR5C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR5C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR5C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 6  -->
+                <Ellipse
+                    x:Name="ResultR6C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR6C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR6C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR6C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 7  -->
+                <Ellipse
+                    x:Name="ResultR7C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR7C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR7C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR7C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 8  -->
+                <Ellipse
+                    x:Name="ResultR8C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR8C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR8C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR8C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 9  -->
+                <Ellipse
+                    x:Name="ResultR9C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR9C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR9C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR9C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <!--  Reihe 10  -->
+                <Ellipse
+                    x:Name="ResultR10C1"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR10C2"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR10C3"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
+
+                <Ellipse
+                    x:Name="ResultR10C4"
+                    Width="15"
+                    Height="15"
+                    Margin="4"
+                    Fill="Transparent"
+                    Stroke="Gray" />
             </UniformGrid>
         </Border>
 

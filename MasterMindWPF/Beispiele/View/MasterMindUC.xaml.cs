@@ -53,6 +53,7 @@
             this.SelectR0C6.FillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_availableColors[5]));
 
             this.DisableAllPlayerColors();
+            this.DisableAllResults();
             this.RandomStackPanel.Visibility = Visibility.Hidden;
         }
 
@@ -73,9 +74,9 @@
                 {
                     PlayerColor rndColor = new PlayerColor()
                     {
-                        Color = randomColors[0],
+                        Color = randomColors[i],
                         Row = -1,
-                        Col = -1,
+                        Col = i+1,
                         PlayerWin = false,
                         LineChecked = false,
                         Modus = PlayerModus.RandomColor
@@ -130,23 +131,11 @@
                     if (this._playerColors.Any(pc => pc.Row == row && pc.Col == col && pc.Color == color) == false)
                     {
                         this._playerColors.Add(playerColor);
-                    }
 
-                    if (tag.Replace(":", string.Empty) == "PlayerR1C1")
-                    {
-                        this.PlayerR1C1.FillColor = this.CurrentSelectedColor;
-                    }
-                    else if (tag.Replace(":", string.Empty) == "PlayerR1C2")
-                    {
-                        this.PlayerR1C2.FillColor = this.CurrentSelectedColor;
-                    }
-                    else if (tag.Replace(":", string.Empty) == "PlayerR1C3")
-                    {
-                        this.PlayerR1C3.FillColor = this.CurrentSelectedColor;
-                    }
-                    else if (tag.Replace(":", string.Empty) == "PlayerR1C4")
-                    {
-                        this.PlayerR1C4.FillColor = this.CurrentSelectedColor;
+                        this.gridPlayer.Children.OfType<EllipseButton>().Where(f => f.Name == tag.Replace(":", string.Empty)).ToList().ForEach(plItem =>
+                        {
+                            plItem.FillColor = this.CurrentSelectedColor;
+                        });
                     }
 
                     this.CurrentSelectedColor = Brushes.Transparent;
@@ -156,130 +145,103 @@
 
         private void OnCheck(object args)
         {
-            if (this._playerColors != null && this._playerColors.Count == 4)
+            if (this._playerColors != null && this._playerColors.Count >= 4)
             {
+                List<PlayerColor> randomColors = this._playerColors.Where(p => p.Modus == PlayerModus.RandomColor).ToList();
+                if (randomColors != null)
+                {
+                    List<PlayerColor> playerColors = this._playerColors.Where(p => p.Modus == PlayerModus.PlayerColor).ToList();
+                    foreach (PlayerColor playerColor in playerColors)
+                    {
+                        if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture) && rc.Col == playerColor.Col))
+                        {
+                            /* Spieler hat die richtige Farbe an der richtigen Position gewählt */
+                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.PosAndColor);
+                        }
+                        else if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture)))
+                        {
+                            /* Spieler hat die richtige Farbe gewählt, aber an der falschen Position */
+                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.ColorOnly);
+                        }
+                        else
+                        {
+                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.None);
+                        }
+                    }
+                }
             }
         }
 
-        private void EnablelPlayerColors(int row)
+        private void EnablelPlayerColors(int currentRow)
         {
             this.DisableAllPlayerColors();
 
-            if (row == 1)
+            this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
             {
-                this.PlayerR1C1.FillColor = Brushes.Transparent;
-                this.PlayerR1C1.IsEnabled = true;
-                this.PlayerR1C2.FillColor = Brushes.Transparent;
-                this.PlayerR1C2.IsEnabled = true;
-                this.PlayerR1C3.FillColor = Brushes.Transparent;
-                this.PlayerR1C3.IsEnabled = true;
-                this.PlayerR1C4.FillColor = Brushes.Transparent;
-                this.PlayerR1C4.IsEnabled = true;
-            }
-            else if (row == 2)
-            {
-                this.PlayerR2C1.FillColor = Brushes.LightGray;
-                this.PlayerR2C1.IsEnabled = true;
-                this.PlayerR2C2.FillColor = Brushes.LightGray;
-                this.PlayerR2C2.IsEnabled = true;
-                this.PlayerR2C3.FillColor = Brushes.LightGray;
-                this.PlayerR2C3.IsEnabled = true;
-                this.PlayerR2C4.FillColor = Brushes.LightGray;
-                this.PlayerR2C4.IsEnabled = true;
-            }
+                string name = plItem.TagContent.ToString();
+                string[] selectEllipse = name.Split(':');
+                int row = int.Parse(new string(selectEllipse[1].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+
+                if (row == currentRow)
+                {
+                    {
+                        plItem.FillColor = Brushes.Transparent;
+                        plItem.IsEnabled = true;
+                    }
+                }
+            });
         }
 
         private void DisableAllPlayerColors()
         {
-            this.PlayerR1C1.FillColor = Brushes.LightGray;
-            this.PlayerR1C1.IsEnabled = false;
-            this.PlayerR1C2.FillColor = Brushes.LightGray;
-            this.PlayerR1C2.IsEnabled = false;
-            this.PlayerR1C3.FillColor = Brushes.LightGray;
-            this.PlayerR1C3.IsEnabled = false;
-            this.PlayerR1C4.FillColor = Brushes.LightGray;
-            this.PlayerR1C4.IsEnabled = false;
 
-            this.PlayerR2C1.FillColor = Brushes.LightGray;
-            this.PlayerR2C1.IsEnabled = false;
-            this.PlayerR2C2.FillColor = Brushes.LightGray;
-            this.PlayerR2C2.IsEnabled = false;
-            this.PlayerR2C3.FillColor = Brushes.LightGray;
-            this.PlayerR2C3.IsEnabled = false;
-            this.PlayerR2C4.FillColor = Brushes.LightGray;
-            this.PlayerR2C4.IsEnabled = false;
+            this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
+            {
+                plItem.FillColor = Brushes.LightGray;
+                plItem.IsEnabled = false;
+            });
 
-            this.PlayerR3C1.FillColor = Brushes.LightGray;
-            this.PlayerR3C1.IsEnabled = false;
-            this.PlayerR3C2.FillColor = Brushes.LightGray;
-            this.PlayerR3C2.IsEnabled = false;
-            this.PlayerR3C3.FillColor = Brushes.LightGray;
-            this.PlayerR3C3.IsEnabled = false;
-            this.PlayerR3C4.FillColor = Brushes.LightGray;
-            this.PlayerR3C4.IsEnabled = false;
+        }
 
-            this.PlayerR4C1.FillColor = Brushes.LightGray;
-            this.PlayerR4C1.IsEnabled = false;
-            this.PlayerR4C2.FillColor = Brushes.LightGray;
-            this.PlayerR4C2.IsEnabled = false;
-            this.PlayerR4C3.FillColor = Brushes.LightGray;
-            this.PlayerR4C3.IsEnabled = false;
-            this.PlayerR4C4.FillColor = Brushes.LightGray;
-            this.PlayerR4C4.IsEnabled = false;
+        private void DisableAllResults()
+        {
 
-            this.PlayerR5C1.FillColor = Brushes.LightGray;
-            this.PlayerR5C1.IsEnabled = false;
-            this.PlayerR5C2.FillColor = Brushes.LightGray;
-            this.PlayerR5C2.IsEnabled = false;
-            this.PlayerR5C3.FillColor = Brushes.LightGray;
-            this.PlayerR5C3.IsEnabled = false;
-            this.PlayerR5C4.FillColor = Brushes.LightGray;
-            this.PlayerR5C4.IsEnabled = false;
+            this.gridResults.Children.OfType<Ellipse>().ToList().ForEach(plItem =>
+            {
+                plItem.Fill = Brushes.LightGray;
+            });
 
-            this.PlayerR6C1.FillColor = Brushes.LightGray;
-            this.PlayerR6C1.IsEnabled = false;
-            this.PlayerR6C2.FillColor = Brushes.LightGray;
-            this.PlayerR6C2.IsEnabled = false;
-            this.PlayerR6C3.FillColor = Brushes.LightGray;
-            this.PlayerR6C3.IsEnabled = false;
-            this.PlayerR6C4.FillColor = Brushes.LightGray;
-            this.PlayerR6C4.IsEnabled = false;
+        }
 
-            this.PlayerR7C1.FillColor = Brushes.LightGray;
-            this.PlayerR7C1.IsEnabled = false;
-            this.PlayerR7C2.FillColor = Brushes.LightGray;
-            this.PlayerR7C2.IsEnabled = false;
-            this.PlayerR7C3.FillColor = Brushes.LightGray;
-            this.PlayerR7C3.IsEnabled = false;
-            this.PlayerR7C4.FillColor = Brushes.LightGray;
-            this.PlayerR7C4.IsEnabled = false;
+        private void SetResults(int row, int col, ResultModus result)
+        {
 
-            this.PlayerR8C1.FillColor = Brushes.LightGray;
-            this.PlayerR8C1.IsEnabled = false;
-            this.PlayerR8C2.FillColor = Brushes.LightGray;
-            this.PlayerR8C2.IsEnabled = false;
-            this.PlayerR8C3.FillColor = Brushes.LightGray;
-            this.PlayerR8C3.IsEnabled = false;
-            this.PlayerR8C4.FillColor = Brushes.LightGray;
-            this.PlayerR8C4.IsEnabled = false;
+            this.gridResults.Children.OfType<Ellipse>().ToList().ForEach(plItem =>
+            {
+                string name = plItem.Name.Replace("Result",string.Empty).Substring(0,3);
+                string[] selectEllipse = name.Split(':');
+                int currentRow = int.Parse(new string(selectEllipse[0].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
 
-            this.PlayerR9C1.FillColor = Brushes.LightGray;
-            this.PlayerR9C1.IsEnabled = false;
-            this.PlayerR9C2.FillColor = Brushes.LightGray;
-            this.PlayerR9C2.IsEnabled = false;
-            this.PlayerR9C3.FillColor = Brushes.LightGray;
-            this.PlayerR9C3.IsEnabled = false;
-            this.PlayerR9C4.FillColor = Brushes.LightGray;
-            this.PlayerR9C4.IsEnabled = false;
+                if (row == currentRow)
+                {
+                    if (result == ResultModus.ColorOnly)
+                    {
+                        plItem.Fill = Brushes.White;
+                    }
+                    else if (result == ResultModus.PosAndColor)
+                    {
+                        plItem.Fill = Brushes.Black;
+                    }
+                }
+            });
 
-            this.PlayerR10C1.FillColor = Brushes.LightGray;
-            this.PlayerR10C1.IsEnabled = false;
-            this.PlayerR10C2.FillColor = Brushes.LightGray;
-            this.PlayerR10C2.IsEnabled = false;
-            this.PlayerR10C3.FillColor = Brushes.LightGray;
-            this.PlayerR10C3.IsEnabled = false;
-            this.PlayerR10C4.FillColor = Brushes.LightGray;
-            this.PlayerR10C4.IsEnabled = false;
+        }
+
+        private enum ResultModus
+        {
+            None,
+            ColorOnly,
+            PosAndColor,
         }
 
         private enum PlayerModus
