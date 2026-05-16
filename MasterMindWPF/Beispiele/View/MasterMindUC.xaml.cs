@@ -218,11 +218,12 @@
 
             this.gridResults.Children.OfType<Ellipse>().ToList().ForEach(plItem =>
             {
-                string name = plItem.Name.Replace("Result",string.Empty).Substring(0,3);
-                string[] selectEllipse = name.Split(':');
-                int currentRow = int.Parse(new string(selectEllipse[0].Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+                string xrow = plItem.Name.Replace("Result",string.Empty).Substring(0,3);
+                string xcol = plItem.Name.Replace("Result", string.Empty).Substring(2);
+                int currentRow = int.Parse(new string(xrow.Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+                int currentCol = int.Parse(new string(xcol.Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
 
-                if (row == currentRow)
+                if (row == currentRow && col == currentCol)
                 {
                     if (result == ResultModus.ColorOnly)
                     {
