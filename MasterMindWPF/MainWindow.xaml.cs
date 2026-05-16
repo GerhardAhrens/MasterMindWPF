@@ -31,7 +31,7 @@ namespace MasterMindWPF
             WeakEventManager<WindowBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
             WeakEventManager<WindowBase, CancelEventArgs>.AddHandler(this, "Closing", this.OnWindowClosing);
 
-            this.SetVectorIcon("AppIcon2", 64);
+            this.SetVectorIcon("MasterMindIcon", 64);
 
             this.QuitCommand = new CommandBase(this.OnQuit, () => true);
             this.InformationCommand = new CommandBase(this.OnInformationPopup);

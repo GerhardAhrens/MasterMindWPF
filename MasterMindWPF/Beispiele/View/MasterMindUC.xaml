@@ -10,17 +10,6 @@
     d:DesignWidth="800"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
-
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-
-                <ResourceDictionary Source="/Resources/Style/WoodTexture.xaml" />
-
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
-
     <Grid
         ClipToBounds="True"
         ColumnDefinitions="*,120,2*,1*,*"

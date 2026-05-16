@@ -53,6 +53,7 @@
             this.SelectR0C6.FillColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_availableColors[5]));
 
             this.DisableAllPlayerColors();
+            this.RandomStackPanel.Visibility = Visibility.Hidden;
         }
 
         private void OnNewPlay(object args)

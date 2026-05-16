@@ -80,6 +80,153 @@
         </DrawingImage.Drawing>
     </DrawingImage>
 
+    <!--  Master Mind Icon  -->
+    <DrawingImage x:Key="MasterMindIcon">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+
+                <!--  Hintergrund  -->
+                <GeometryDrawing Brush="#2D2D30">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry Rect="0,0,64,64" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Spielbrett  -->
+                <GeometryDrawing Brush="#3C3C42">
+                    <GeometryDrawing.Geometry>
+                        <RectangleGeometry
+                            RadiusX="6"
+                            RadiusY="6"
+                            Rect="10,6,44,52" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Reihe 1  -->
+                <GeometryDrawing Brush="Red">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="20,16"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Gold">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="32,16"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="LimeGreen">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="44,16"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Reihe 2  -->
+                <GeometryDrawing Brush="DodgerBlue">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="20,28"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Orange">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="32,28"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="MediumPurple">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="44,28"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Reihe 3  -->
+                <GeometryDrawing Brush="HotPink">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="20,40"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Turquoise">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="32,40"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="YellowGreen">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="44,40"
+                            RadiusX="4"
+                            RadiusY="4" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <!--  Kleine Bewertungs-Pins  -->
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="52,14"
+                            RadiusX="1.5"
+                            RadiusY="1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Black">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="56,14"
+                            RadiusX="1.5"
+                            RadiusY="1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="White">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="52,18"
+                            RadiusX="1.5"
+                            RadiusY="1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+                <GeometryDrawing Brush="Black">
+                    <GeometryDrawing.Geometry>
+                        <EllipseGeometry
+                            Center="56,18"
+                            RadiusX="1.5"
+                            RadiusY="1.5" />
+                    </GeometryDrawing.Geometry>
+                </GeometryDrawing>
+
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    
     <!--#region Statuszeile-->
     <Viewbox
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

@@ -120,27 +120,10 @@
                     HorizontalAlignment="Left"
                     Command="{Binding Path=QuitParamCommand}"
                     ToolTip="Close Application with Argument">
-                    <Image Source="{StaticResource ResourceKey=IconApplicationExit3}" Stretch="None" />
-                </Button>
-
-                <Button
-                    Width="30"
-                    Height="30"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Command="{Binding Path=StartCommand}"
-                    ToolTip="Click ausführen">
-                    <Image Source="{StaticResource ResourceKey=IconCustom}" Stretch="None" />
-                </Button>
-
-                <Button
-                    Width="30"
-                    Height="30"
-                    Margin="5,0,0,0"
-                    HorizontalAlignment="Left"
-                    Command="{Binding Path=ShowMessageCommand}"
-                    ToolTip="Meldung anzeigen">
-                    <Image Source="{StaticResource ResourceKey=IconMessage}" Stretch="None" />
+                    <Image
+                        Width="32"
+                        Height="32"
+                        Source="{StaticResource MasterMindIcon}" />
                 </Button>
 
                 <Button
