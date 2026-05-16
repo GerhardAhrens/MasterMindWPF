@@ -163,6 +163,8 @@
 
         private void EnablelPlayerColors(int row)
         {
+            this.DisableAllPlayerColors();
+
             if (row == 1)
             {
                 this.PlayerR1C1.FillColor = Brushes.Transparent;
@@ -173,6 +175,17 @@
                 this.PlayerR1C3.IsEnabled = true;
                 this.PlayerR1C4.FillColor = Brushes.Transparent;
                 this.PlayerR1C4.IsEnabled = true;
+            }
+            else if (row == 2)
+            {
+                this.PlayerR2C1.FillColor = Brushes.LightGray;
+                this.PlayerR2C1.IsEnabled = true;
+                this.PlayerR2C2.FillColor = Brushes.LightGray;
+                this.PlayerR2C2.IsEnabled = true;
+                this.PlayerR2C3.FillColor = Brushes.LightGray;
+                this.PlayerR2C3.IsEnabled = true;
+                this.PlayerR2C4.FillColor = Brushes.LightGray;
+                this.PlayerR2C4.IsEnabled = true;
             }
         }
 
@@ -231,6 +244,42 @@
             this.PlayerR6C3.IsEnabled = false;
             this.PlayerR6C4.FillColor = Brushes.LightGray;
             this.PlayerR6C4.IsEnabled = false;
+
+            this.PlayerR7C1.FillColor = Brushes.LightGray;
+            this.PlayerR7C1.IsEnabled = false;
+            this.PlayerR7C2.FillColor = Brushes.LightGray;
+            this.PlayerR7C2.IsEnabled = false;
+            this.PlayerR7C3.FillColor = Brushes.LightGray;
+            this.PlayerR7C3.IsEnabled = false;
+            this.PlayerR7C4.FillColor = Brushes.LightGray;
+            this.PlayerR7C4.IsEnabled = false;
+
+            this.PlayerR8C1.FillColor = Brushes.LightGray;
+            this.PlayerR8C1.IsEnabled = false;
+            this.PlayerR8C2.FillColor = Brushes.LightGray;
+            this.PlayerR8C2.IsEnabled = false;
+            this.PlayerR8C3.FillColor = Brushes.LightGray;
+            this.PlayerR8C3.IsEnabled = false;
+            this.PlayerR8C4.FillColor = Brushes.LightGray;
+            this.PlayerR8C4.IsEnabled = false;
+
+            this.PlayerR9C1.FillColor = Brushes.LightGray;
+            this.PlayerR9C1.IsEnabled = false;
+            this.PlayerR9C2.FillColor = Brushes.LightGray;
+            this.PlayerR9C2.IsEnabled = false;
+            this.PlayerR9C3.FillColor = Brushes.LightGray;
+            this.PlayerR9C3.IsEnabled = false;
+            this.PlayerR9C4.FillColor = Brushes.LightGray;
+            this.PlayerR9C4.IsEnabled = false;
+
+            this.PlayerR10C1.FillColor = Brushes.LightGray;
+            this.PlayerR10C1.IsEnabled = false;
+            this.PlayerR10C2.FillColor = Brushes.LightGray;
+            this.PlayerR10C2.IsEnabled = false;
+            this.PlayerR10C3.FillColor = Brushes.LightGray;
+            this.PlayerR10C3.IsEnabled = false;
+            this.PlayerR10C4.FillColor = Brushes.LightGray;
+            this.PlayerR10C4.IsEnabled = false;
         }
 
         private enum PlayerModus
