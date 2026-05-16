@@ -18,8 +18,6 @@ namespace MasterMindWPF
     using System.ComponentModel;
     using System.Windows;
 
-    using MasterMindWPF.Beispiele;
-
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -151,10 +149,4 @@ namespace MasterMindWPF
             }
         }
     }
-
-    #region Message
-    /*
-    * https://stackoverflow.com/questions/18325239/how-to-set-the-font-in-different-styles-for-message-box-in-wpf
-    */
-    #endregion
 }

@@ -102,7 +102,10 @@
         <!--#endregion Popup im MainWindow Dialog-->
 
         <Border BorderBrush="DarkGray" BorderThickness="0,0,0,2">
-            <DockPanel Grid.Row="0" Grid.Column="0">
+            <DockPanel
+                Grid.Row="0"
+                Grid.Column="0"
+                Background="#B07A4D">
                 <Button
                     Width="30"
                     Height="30"
