@@ -5,6 +5,7 @@
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Shapes;
+    using System.Xml.Linq;
 
     /// <summary>
     /// Interaktionslogik für MasterMindUC.xaml
@@ -43,6 +44,8 @@
         public CommandBase CheckCommand { get; private set; }
 
         public Brush CurrentSelectedColor { get; set; }
+
+        private MessageBase Message { get; } = new MessageBase();
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -93,15 +96,18 @@
 
         private void OnShowColors(object args)
         {
-            if (this.RandomStackPanel.Visibility != Visibility.Visible)
+            MessageBoxResult msgYN = this.Message.EndTheGameYN();
+            if (msgYN == MessageBoxResult.Yes)
             {
-                this.RandomStackPanel.Visibility = Visibility.Visible;
+                if (this.RandomStackPanel.Visibility != Visibility.Visible)
+                {
+                    this.RandomStackPanel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.RandomStackPanel.Visibility = Visibility.Hidden;
+                }
             }
-            else
-            {
-                this.RandomStackPanel.Visibility = Visibility.Hidden;
-            }
-
         }
 
         private void OnSelectColor(object args)
@@ -175,23 +181,40 @@
                 if (randomColors != null)
                 {
                     int lastRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.PlayerColor).Row;
-
                     List<PlayerColor> playerColors = this._playerColors.Where(p => p.Row == lastRow && p.Modus == PlayerModus.PlayerColor).ToList();
-                    foreach (PlayerColor playerColor in playerColors)
+                    if (playerColors.Count == 4)
                     {
-                        if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture) && rc.Col == playerColor.Col))
+                        foreach (PlayerColor playerColor in playerColors)
                         {
-                            /* Spieler hat die richtige Farbe an der richtigen Position gewählt */
-                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.PosAndColor);
+                            int index = playerColors.IndexOf(playerColor);
+
+                            if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture) && rc.Col == playerColor.Col))
+                            {
+                                /* Spieler hat die richtige Farbe an der richtigen Position gewählt */
+                                playerColor.PlayerWin = true;
+                                this.SetResults(playerColor.Row, playerColor.Col, ResultModus.PosAndColor);
+                            }
+                            else if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture)))
+                            {
+                                /* Spieler hat die richtige Farbe gewählt, aber an der falschen Position */
+                                playerColor.LineChecked = true;
+                                this.SetResults(playerColor.Row, playerColor.Col, ResultModus.ColorOnly);
+                            }
+                            else
+                            {
+                                this.SetResults(playerColor.Row, playerColor.Col, ResultModus.None);
+                            }
                         }
-                        else if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture)))
+
+                        if (playerColors.Count(c => c.PlayerWin) == 4)
                         {
-                            /* Spieler hat die richtige Farbe gewählt, aber an der falschen Position */
-                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.ColorOnly);
-                        }
-                        else
-                        {
-                            this.SetResults(playerColor.Row, playerColor.Col, ResultModus.None);
+                            int versuche = playerColors.DistinctBy(d => d.Row).Count(c => c.Modus == PlayerModus.PlayerColor);
+                            this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
+                            {
+                                plItem.IsEnabled = false;
+                            });
+
+                            this.Message.PlayerWinGame(versuche);
                         }
                     }
                 }

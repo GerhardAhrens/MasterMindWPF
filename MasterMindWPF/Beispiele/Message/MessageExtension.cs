@@ -30,6 +30,24 @@ namespace System.Windows
             return result;
         }
 
+        public static MessageBoxResult EndTheGameYN(this IMessageBase self)
+        {
+            string msgBoxTitle = LocalizationValue.Get("PlayerBreakTitel_DE");
+            string msgBoxMessage = LocalizationValue.Get("PlayerBreakTitel_DE");
+
+            MessageBoxResult result = self.ShowMessage("Spiel beenden", msgBoxMessage, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            return result;
+        }
+
+        public static MessageBoxResult PlayerWinGame(this IMessageBase self, int versuche)
+        {
+            string msgBoxTitle = LocalizationValue.Get("PlayerWinTitel_DE");
+            string msgBoxMessage = LocalizationValue.Get("PlayerWin_DE", versuche);
+
+            MessageBoxResult result = self.ShowMessage(msgBoxTitle, msgBoxMessage,MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK);
+            return result;
+        }
+
         public static MessageBoxResult AppExitMessage(this IMessageBase self, string args = null)
         {
             MessageBoxResult result;

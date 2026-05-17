@@ -8,4 +8,11 @@
 
     <system:String x:Key="MessageExit_Titel_DE">Beenden</system:String>
     <system:String x:Key="MessageExit_Text_DE">Wollen Sie die Anwendung beenden? ({0})</system:String>
+
+    <system:String x:Key="PlayerBreakTitel_DE">Spiel beenden</system:String>
+    <system:String x:Key="PlayerBreak_DE">Wenn Sie das Ergebnis vor dem Spielende sehen wollen, wird das Spiel abgebrochen. Wollen Sie das Spiel abbrechen?</system:String>
+
+    <system:String x:Key="PlayerWinTitel_DE">Spiel beenden</system:String>
+    <system:String x:Key="PlayerWin_DE">Gratulation, Sie haben das Spiel nach {0} Versuche gewonnen.</system:String>
+
 </ResourceDictionary>
