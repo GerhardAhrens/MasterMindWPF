@@ -33,9 +33,9 @@ namespace System.Windows
         public static MessageBoxResult EndTheGameYN(this IMessageBase self)
         {
             string msgBoxTitle = LocalizationValue.Get("PlayerBreakTitel_DE");
-            string msgBoxMessage = LocalizationValue.Get("PlayerBreakTitel_DE");
+            string msgBoxMessage = LocalizationValue.Get("PlayerBreak_DE");
 
-            MessageBoxResult result = self.ShowMessage("Spiel beenden", msgBoxMessage, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            MessageBoxResult result = self.ShowMessage(msgBoxTitle, msgBoxMessage, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             return result;
         }
 

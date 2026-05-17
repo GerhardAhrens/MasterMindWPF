@@ -26,6 +26,7 @@
         public MasterMindUC()
         {
             this.InitializeComponent();
+
             WeakEventManager<UserControlBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
 
             this.NewPlayCommand = new CommandBase(args => this.OnNewPlay(args), () => true);
@@ -33,7 +34,7 @@
             this.SelectColorCommand = new CommandBase(args => this.OnSelectColor(args), () => true);
             this.PlayerColorCommand = new CommandBase(args => this.OnPlayerColor(args), () => true);
             this.CheckCommand = new CommandBase(args => this.OnCheck(args), () => true);
-
+            this.SpielTitel = LocalizationValue.Get("SpielTitel");
             this.DataContext = this;
         }
 
@@ -44,6 +45,12 @@
         public CommandBase CheckCommand { get; private set; }
 
         public Brush CurrentSelectedColor { get; set; }
+
+        public string SpielTitel
+        {
+            get => base.GetValue<string>();
+            set => base.SetValue(value);
+        }
 
         private MessageBase Message { get; } = new MessageBase();
 

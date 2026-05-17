@@ -31,7 +31,7 @@
             VerticalAlignment="Center"
             FontSize="28"
             FontWeight="Bold"
-            Text="Master Mind" />
+            Text="{Binding Path=SpielTitel, FallbackValue=~MasterMind}" />
 
         <Border
             Grid.Row="1"

@@ -23,7 +23,10 @@ Das Spielbrett besteht aus einem Raster von 4x10 Zellen, in dem ein Spieler sein
 
 Herausforderungen waren:
 - Textur für Hintergrund
-- Vector Grafik `DrawingImage` als Windows Icon
+- Vector Grafik `DrawingImage` als Windows Icon erstellen
+  DrawingImage als PNG und ICO speichern
+- Erstellen eines Controls `EllipseButton` zum setzten der Farben.\
+  Der `EllipseButton` wird über `ICommand` für einen Klick gesteuert.
 
 ![Version](https://img.shields.io/badge/Version-1.0.2026.1-yellow.svg)
 - Neuerstellung
