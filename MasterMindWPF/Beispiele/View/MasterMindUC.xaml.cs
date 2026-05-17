@@ -1,5 +1,6 @@
 ﻿namespace MasterMindWPF.Beispiele
 {
+    using System.Diagnostics;
     using System.Globalization;
     using System.Windows;
     using System.Windows.Media;
@@ -86,13 +87,20 @@
                 }
 
                 this.EnablelPlayerColors(1);
+                this.DisableAllResults(1);
             }
         }
 
         private void OnShowColors(object args)
         {
-            this.RandomStackPanel.Visibility = Visibility.Visible;
-
+            if (this.RandomStackPanel.Visibility != Visibility.Visible)
+            {
+                this.RandomStackPanel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                this.RandomStackPanel.Visibility = Visibility.Hidden;
+            }
 
         }
 
@@ -130,6 +138,22 @@
 
                     if (this._playerColors.Any(pc => pc.Row == row && pc.Col == col && pc.Color == color) == false)
                     {
+                        PlayerColor playerColorCurrent  = this._playerColors.FirstOrDefault(pc => pc.Row == row && pc.Col == col && pc.Color != Brushes.Transparent);
+                        this._playerColors.Add(playerColor);
+
+                        this.gridPlayer.Children.OfType<EllipseButton>().Where(f => f.Name == tag.Replace(":", string.Empty)).ToList().ForEach(plItem =>
+                        {
+                            plItem.FillColor = this.CurrentSelectedColor;
+                        });
+                    }
+                    else
+                    {
+                        PlayerColor playerColorCurrent = this._playerColors.FirstOrDefault(pc => pc.Row == row && pc.Col == col && pc.Color != Brushes.Transparent);
+                        if (playerColorCurrent != null)
+                        {
+                            this._playerColors.Remove(playerColorCurrent);
+                        }
+
                         this._playerColors.Add(playerColor);
 
                         this.gridPlayer.Children.OfType<EllipseButton>().Where(f => f.Name == tag.Replace(":", string.Empty)).ToList().ForEach(plItem =>
@@ -150,7 +174,9 @@
                 List<PlayerColor> randomColors = this._playerColors.Where(p => p.Modus == PlayerModus.RandomColor).ToList();
                 if (randomColors != null)
                 {
-                    List<PlayerColor> playerColors = this._playerColors.Where(p => p.Modus == PlayerModus.PlayerColor).ToList();
+                    int lastRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.PlayerColor).Row;
+
+                    List<PlayerColor> playerColors = this._playerColors.Where(p => p.Row == lastRow && p.Modus == PlayerModus.PlayerColor).ToList();
                     foreach (PlayerColor playerColor in playerColors)
                     {
                         if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture) && rc.Col == playerColor.Col))
@@ -174,8 +200,6 @@
 
         private void EnablelPlayerColors(int currentRow)
         {
-            this.DisableAllPlayerColors();
-
             this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
             {
                 string name = plItem.TagContent.ToString();
@@ -192,23 +216,47 @@
             });
         }
 
-        private void DisableAllPlayerColors()
+        private void DisableAllPlayerColors(int currentRow = 1)
         {
 
             this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
             {
-                plItem.FillColor = Brushes.LightGray;
-                plItem.IsEnabled = false;
+                int count = this._playerColors.Count(l => l.Row == currentRow && l.Modus == PlayerModus.PlayerColor);
+                if (count == 0)
+                {
+                    plItem.FillColor = Brushes.LightGray;
+                    plItem.IsEnabled = false;
+                }
+                else
+                {
+                    int lastRow = this._playerColors.LastOrDefault(l => l.Row == currentRow && l.Modus == PlayerModus.PlayerColor).Row;
+
+                    if (lastRow >= currentRow)
+                    {
+                        {
+                            plItem.FillColor = Brushes.LightGray;
+                            plItem.IsEnabled = false;
+                        }
+                    }
+                }
             });
 
         }
 
-        private void DisableAllResults()
+        private void DisableAllResults(int currentRow = 1)
         {
 
             this.gridResults.Children.OfType<Ellipse>().ToList().ForEach(plItem =>
             {
-                plItem.Fill = Brushes.LightGray;
+                string xrow = plItem.Name.Replace("Result", string.Empty).Substring(0, 3);
+                string xcol = plItem.Name.Replace("Result", string.Empty).Substring(2);
+                int row = int.Parse(new string(xrow.Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+                int col = int.Parse(new string(xcol.Where(char.IsDigit).ToArray()), CultureInfo.CurrentCulture);
+
+                if (row >= currentRow && col > 0)
+                {
+                    plItem.Fill = Brushes.LightGray;
+                }
             });
 
         }
@@ -236,6 +284,7 @@
                 }
             });
 
+            this.EnablelPlayerColors(row + 1);
         }
 
         private enum ResultModus
@@ -251,6 +300,7 @@
             PlayerColor,
         }
 
+        [DebuggerDisplay("Row={this.Row};Co=l{this.Col};Color={this.Color}")]
         private sealed class PlayerColor
         {
             public Brush Color { get; set; }

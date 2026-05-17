@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/_Doc/">
     <File Path="LICENSE.txt" />
+    <File Path="MasterMindBrett.png" />
     <File Path="README.md" />
   </Folder>
   <Project Path="MasterMindWPF/MasterMindWPF.csproj" />

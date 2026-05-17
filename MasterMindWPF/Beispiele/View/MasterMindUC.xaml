@@ -14,7 +14,7 @@
         ClipToBounds="True"
         ColumnDefinitions="*,120,2*,1*,*"
         RowDefinitions="Auto,40,*,40"
-        ShowGridLines="True">
+        ShowGridLines="False">
         <Control
             Grid.Row="0"
             Grid.RowSpan="4"
@@ -222,7 +222,7 @@
                     CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Ellipse}}"
                     Cursor="Hand"
                     FillColor="Transparent"
-                    TagContent="Player:R2:C2" />
+                    TagContent="Player:R2:C3" />
 
                 <local:EllipseButton
                     x:Name="PlayerR2C4"
@@ -915,7 +915,7 @@
                 x:Name="RandomR1C1"
                 Width="25"
                 Height="25"
-                Margin="25,0,45,0"
+                Margin="25,0,52,0"
                 Fill="Transparent"
                 Stroke="Gray" />
 
@@ -923,7 +923,7 @@
                 x:Name="RandomR1C2"
                 Width="25"
                 Height="25"
-                Margin="0,0,45,0"
+                Margin="0,0,50,0"
                 Fill="Transparent"
                 Stroke="Gray" />
 
@@ -931,7 +931,7 @@
                 x:Name="RandomR1C3"
                 Width="25"
                 Height="25"
-                Margin="0,0,45,0"
+                Margin="0,0,50,0"
                 Fill="Transparent"
                 Stroke="Gray" />
 

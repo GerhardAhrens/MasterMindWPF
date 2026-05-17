@@ -16,8 +16,14 @@ Der Fokus bei diesem Projekt liegt auf der Erstellung von Controls `EllipseButto
 
 Das Spielbrett besteht aus einem Raster von 4x10 Zellen, in dem ein Spieler seine Farbcode-Kombinationen platzieren kann. Jede Zelle kann eine von sechs Farben enthalten, und die Spieler müssen versuchen, die geheime Farbcode-Kombination zu erraten, die vom Computer generiert wird.
 
+<img src="MasterMindBrett.png" style="width:650px;"/>
+
 
 # Die Technik dahinter
+
+Herausforderungen waren:
+- Textur für Hintergrund
+- Vector Grafik `DrawingImage` als Windows Icon
 
 ![Version](https://img.shields.io/badge/Version-1.0.2026.1-yellow.svg)
 - Neuerstellung
