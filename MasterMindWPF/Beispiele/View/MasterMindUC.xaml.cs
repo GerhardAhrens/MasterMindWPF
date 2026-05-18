@@ -3,6 +3,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Text.Json;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Shapes;
@@ -28,6 +29,13 @@
             this.InitializeComponent();
 
             WeakEventManager<UserControlBase, RoutedEventArgs>.AddHandler(this, "Loaded", this.OnLoaded);
+
+            this.JSONOption = new JsonSerializerOptions()
+            {
+                PropertyNameCaseInsensitive = true,
+                IndentSize = 2,
+                WriteIndented = true
+            };
 
             this.NewPlayCommand = new CommandBase(args => this.OnNewPlay(args), () => true);
             this.ShowColorsCommand = new CommandBase(args => this.OnShowColors(args), () => true);
@@ -55,6 +63,8 @@
         }
 
         private MessageBase Message { get; } = new MessageBase();
+
+        private JsonSerializerOptions JSONOption { get; set; }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
@@ -224,7 +234,18 @@
                             }
                         }
 
-                        if (playerColors.Count(c => c.PlayerWin) == 4)
+                        if (playerColors.Count(c => c.PlayerWin == true && c.Row < 10) == 4)
+                        {
+                            int versuche = playerColors.Count(c => c.Modus == PlayerModus.PlayerColor);
+                            this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
+                            {
+                                plItem.IsEnabled = false;
+                            });
+
+                            this.CreateHistoryEntry(true, versuche);
+                            this.Message.PlayerWinGame(versuche);
+                        }
+                        else if (playerColors.Any(c => c.PlayerWin == false && c.Row > 9) == true)
                         {
                             int versuche = playerColors.DistinctBy(d => d.Row).Count(c => c.Modus == PlayerModus.PlayerColor);
                             this.gridPlayer.Children.OfType<EllipseButton>().ToList().ForEach(plItem =>
@@ -232,7 +253,7 @@
                                 plItem.IsEnabled = false;
                             });
 
-                            this.Message.PlayerWinGame(versuche);
+                            this.Message.PlayerNotWinGame(versuche);
                         }
                     }
                 }
@@ -330,17 +351,33 @@
 
         private void OnShowHistory(object args)
         {
-            string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            string historyFile = $"{rootPath}\\{AppDomain.CurrentDomain.FriendlyName}\\Settings";
-            if (Directory.Exists(historyFile) == false)
+            if (_playerColors != null && _playerColors.Count >= 8)
             {
-                Directory.CreateDirectory(historyFile);
             }
+        }
 
-            historyFile = $"{historyFile}\\PlayerHistory.json";
+        private void CreateHistoryEntry(bool isGameWin, int tryPlaying)
+        {
+            List<PlayerHistory> playerHistorySource = new();
 
             if (_playerColors != null && _playerColors.Count >= 8)
             {
+                string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                string historyFile = $"{rootPath}\\{AppDomain.CurrentDomain.FriendlyName}\\Settings";
+                if (Directory.Exists(historyFile) == false)
+                {
+                    Directory.CreateDirectory(historyFile);
+                }
+
+                historyFile = $"{historyFile}\\PlayerHistory.json";
+
+                if (File.Exists(historyFile) == true)
+                {
+                    string jsonString = File.ReadAllText(historyFile);
+
+                    playerHistorySource = JsonSerializer.Deserialize<List<PlayerHistory>>(jsonString, this.JSONOption);
+                }
+
                 PlayerColor firstRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.RandomColor);
                 PlayerColor lastRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.PlayerColor);
                 if (firstRow != null && lastRow != null)
@@ -352,16 +389,17 @@
 
                     PlayerHistory historyEntry = new();
                     historyEntry.PlayerName = Environment.UserName;
-                    historyEntry.TryPlaying = 0;
+                    historyEntry.TryPlaying = tryPlaying;
                     historyEntry.TimeTequired = $"Spielzeit: {minuten} Minuten und {sekunden} Sekunden";
-                }
-            }
-        }
+                    historyEntry.GameWin = isGameWin;
+                    playerHistorySource.Add(historyEntry);
 
-        private void CreateHistoryEntry()
-        {
-            if (_playerColors != null && _playerColors.Count >= 8)
-            {
+                    if (playerHistorySource.Count > 0)
+                    {
+                        string jsonString = JsonSerializer.Serialize(playerHistorySource, this.JSONOption);
+                        File.WriteAllText(historyFile, jsonString);
+                    }
+                }
 
             }
         }
@@ -399,11 +437,14 @@
             public DateTime PlayTime { get; set; }
         }
 
+        [DebuggerDisplay("Versuche={this.TryPlaying};Spielzeit=l{this.TimeTequired};Gewonnen={this.GameWin}")]
         private sealed class PlayerHistory
         {
             public string PlayerName { get; set; }
             public int TryPlaying { get; set; }
             public string TimeTequired { get; set; }
+
+            public bool GameWin { get; set; }
         }
     }
 }

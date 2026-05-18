@@ -14,7 +14,10 @@
     <system:String x:Key="PlayerBreakTitel_DE">Spiel beenden</system:String>
     <system:String x:Key="PlayerBreak_DE">Wenn Sie das Ergebnis vor dem Spielende sehen wollen, wird das Spiel abgebrochen. Wollen Sie das Spiel abbrechen?</system:String>
 
-    <system:String x:Key="PlayerWinTitel_DE">Spiel beenden</system:String>
+    <system:String x:Key="PlayerWinTitel_DE">Spiel gewonnen</system:String>
     <system:String x:Key="PlayerWin_DE">Gratulation, Sie haben das Spiel nach {0} Versuche gewonnen.</system:String>
+
+    <system:String x:Key="PlayerNotWinTitel_DE">Spiel verloren</system:String>
+    <system:String x:Key="PlayerNotWin_DE">Gratulation, Sie haben das Spiel leinder nach {0} Versuche verloren. Versuchen Sie erneut Ihr Glück.</system:String>
 
 </ResourceDictionary>

@@ -44,6 +44,15 @@ namespace System.Windows
             string msgBoxTitle = LocalizationValue.Get("PlayerWinTitel_DE");
             string msgBoxMessage = LocalizationValue.Get("PlayerWin_DE", versuche);
 
+            MessageBoxResult result = self.ShowMessage(msgBoxTitle, msgBoxMessage, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+            return result;
+        }
+
+        public static MessageBoxResult PlayerNotWinGame(this IMessageBase self, int versuche)
+        {
+            string msgBoxTitle = LocalizationValue.Get("PlayerNotWinTitel_DE");
+            string msgBoxMessage = LocalizationValue.Get("PlayerNotWin_DE", versuche);
+
             MessageBoxResult result = self.ShowMessage(msgBoxTitle, msgBoxMessage,MessageBoxButton.OK,MessageBoxImage.Information,MessageBoxResult.OK);
             return result;
         }
