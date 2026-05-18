@@ -29,4 +29,4 @@ Herausforderungen waren:
   Der `EllipseButton` wird über `ICommand` für einen Klick gesteuert.
 
 ![Version](https://img.shields.io/badge/Version-1.0.2026.1-yellow.svg)
-- Neuerstellung
+- Migration auf NET 10 von einem alten .Net Framework 3.5 (Window Forms)
