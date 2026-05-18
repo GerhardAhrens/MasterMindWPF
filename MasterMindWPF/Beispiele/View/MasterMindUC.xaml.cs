@@ -2,10 +2,10 @@
 {
     using System.Diagnostics;
     using System.Globalization;
+    using System.IO;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Shapes;
-    using System.Xml.Linq;
 
     /// <summary>
     /// Interaktionslogik für MasterMindUC.xaml
@@ -34,6 +34,7 @@
             this.SelectColorCommand = new CommandBase(args => this.OnSelectColor(args), () => true);
             this.PlayerColorCommand = new CommandBase(args => this.OnPlayerColor(args), () => true);
             this.CheckCommand = new CommandBase(args => this.OnCheck(args), () => true);
+            this.ShowHistoryCommand = new CommandBase(args => this.OnShowHistory(args), () => true);
             this.SpielTitel = LocalizationValue.Get("SpielTitel");
             this.DataContext = this;
         }
@@ -43,6 +44,7 @@
         public CommandBase SelectColorCommand { get; private set; }
         public CommandBase PlayerColorCommand { get; private set; }
         public CommandBase CheckCommand { get; private set; }
+        public CommandBase ShowHistoryCommand { get; private set; }
 
         public Brush CurrentSelectedColor { get; set; }
 
@@ -90,7 +92,9 @@
                         Col = i+1,
                         PlayerWin = false,
                         LineChecked = false,
-                        Modus = PlayerModus.RandomColor
+                        Modus = PlayerModus.RandomColor,
+                        TryPlaying = 0,
+                        PlayTime = DateTime.Now
                     };
 
                     this._playerColors.Add(rndColor);
@@ -146,7 +150,9 @@
                         Col = col,
                         PlayerWin = false,
                         LineChecked = false,
-                        Modus = PlayerModus.PlayerColor
+                        Modus = PlayerModus.PlayerColor,
+                        TryPlaying = 0,
+                        PlayTime = DateTime.Now
                     };
 
                     if (this._playerColors.Any(pc => pc.Row == row && pc.Col == col && pc.Color == color) == false)
@@ -197,8 +203,13 @@
 
                             if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture) && rc.Col == playerColor.Col))
                             {
+                                int versuche = playerColors.DistinctBy(d => d.Row).Count(c => c.Modus == PlayerModus.PlayerColor);
+
                                 /* Spieler hat die richtige Farbe an der richtigen Position gewählt */
+                                playerColor.LineChecked = true;
                                 playerColor.PlayerWin = true;
+                                playerColor.TryPlaying = versuche;
+                                playerColor.PlayTime = DateTime.Now;
                                 this.SetResults(playerColor.Row, playerColor.Col, ResultModus.PosAndColor);
                             }
                             else if (randomColors.Any(rc => rc.Color.ToString(CultureInfo.CurrentCulture) == playerColor.Color.ToString(CultureInfo.CurrentCulture)))
@@ -317,6 +328,44 @@
             this.EnablelPlayerColors(row + 1);
         }
 
+        private void OnShowHistory(object args)
+        {
+            string rootPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            string historyFile = $"{rootPath}\\{AppDomain.CurrentDomain.FriendlyName}\\Settings";
+            if (Directory.Exists(historyFile) == false)
+            {
+                Directory.CreateDirectory(historyFile);
+            }
+
+            historyFile = $"{historyFile}\\PlayerHistory.json";
+
+            if (_playerColors != null && _playerColors.Count >= 8)
+            {
+                PlayerColor firstRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.RandomColor);
+                PlayerColor lastRow = this._playerColors.LastOrDefault(l => l.Modus == PlayerModus.PlayerColor);
+                if (firstRow != null && lastRow != null)
+                {
+                    TimeSpan timeDiff = lastRow.PlayTime - firstRow.PlayTime;
+                    double totalMinuten = timeDiff.TotalMinutes;
+                    int minuten = (int)Math.Floor(timeDiff.TotalMinutes);
+                    int sekunden = timeDiff.Seconds; // verbleibende Sekunden (0 bis 59)
+
+                    PlayerHistory historyEntry = new();
+                    historyEntry.PlayerName = Environment.UserName;
+                    historyEntry.TryPlaying = 0;
+                    historyEntry.TimeTequired = $"Spielzeit: {minuten} Minuten und {sekunden} Sekunden";
+                }
+            }
+        }
+
+        private void CreateHistoryEntry()
+        {
+            if (_playerColors != null && _playerColors.Count >= 8)
+            {
+
+            }
+        }
+
         private enum ResultModus
         {
             None,
@@ -344,6 +393,17 @@
             public bool PlayerWin { get; set; }
 
             public PlayerModus Modus { get; set; }
+
+            public int TryPlaying { get; set; }
+
+            public DateTime PlayTime { get; set; }
+        }
+
+        private sealed class PlayerHistory
+        {
+            public string PlayerName { get; set; }
+            public int TryPlaying { get; set; }
+            public string TimeTequired { get; set; }
         }
     }
 }
